@@ -1,0 +1,15 @@
+<library path="simple_mujoco_gui_plugin">
+  <class name="simple_mujoco_gui_plugin/SimpleMujocoGuiPlugin" type="simple_mujoco_gui_plugin::SimpleMujocoGuiPlugin" base_class_type="rqt_gui_cpp::Plugin">
+    <description> An RQt GUI node for MuJoCo UI Interaction. </description>
+    <qtgui>
+      <!-- <group>
+        <label>Visualization</label>
+        <icon type="theme">folder</icon>
+        <statustip>Plugins related to visualization</statustip>
+      </group> -->
+      <!-- <label>MuJoCo UI Interaction</label> -->
+      <icon type="theme">utilities-system-monitor</icon>
+      <statustip>A plugin visualizing messages and services values</statustip>
+    </qtgui>
+  </class>
+</library>
