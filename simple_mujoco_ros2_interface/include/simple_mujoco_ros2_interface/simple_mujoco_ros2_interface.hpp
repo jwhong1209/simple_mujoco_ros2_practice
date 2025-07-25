@@ -8,14 +8,18 @@
 #ifndef SIMPLE_MUJOCO_ROS2_INTERFACE_HPP_
 #define SIMPLE_MUJOCO_ROS2_INTERFACE_HPP_
 
+/* ROS2 Packages */
 #include <rclcpp/rclcpp.hpp>
 
 #include <geometry_msgs/msg/pose.hpp>
 #include <sensor_msgs/msg/joint_state.hpp>
+#include <std_msgs/msg/bool.hpp>
 #include <std_msgs/msg/float64.hpp>
 
 /* C++ STL */
 #include <atomic>
+#include <chrono>
+#include <iostream>
 #include <memory>
 #include <mutex>
 #include <string>
@@ -23,80 +27,65 @@
 #include <vector>
 
 /* MuJoCo-related */
-#include <mujoco/mujoco.h>
 #include "simulate.h"
 
-// using namespace rclcpp;
 using namespace std::chrono_literals;
-
 namespace mj = ::mujoco;
-namespace mju = ::mujoco::util;
-
-struct MujocoCommand
-{
-  std::vector<double> q_des;
-  std::vector<double> dq_des;
-  std::vector<double> tau_des;
-  rclcpp::Time timestamp;
-  bool is_valid = false;
-
-  MujocoCommand() : timestamp(rclcpp::Time(0)), is_valid(false)
-  {
-  }
-};
 
 class SimpleMujocoRos2Interface : public rclcpp::Node
 {
-private:
-  static SimpleMujocoRos2Interface * global_instance_;
-
-  mj::Simulate * sim_;
-
-  // Thread-safe command handling
-  MujocoCommand latest_command_;
-  std::mutex command_mutex_;
-  rclcpp::Time last_command_time_;
-  std::atomic<bool> command_received_;
-
-  // Safety parameters
-  static constexpr double COMMAND_TIMEOUT_MS = 10.0;  // 10ms timeout
-  static constexpr double MAX_COMMAND_AGE_MS = 5.0;   // 5ms max age
-
-  // ROS2 interfaces
-  rclcpp::Subscription<sensor_msgs::msg::JointState>::SharedPtr sub_joint_cmd_;
-  void subJointCommand(const sensor_msgs::msg::JointState::SharedPtr msg);
-
-  static constexpr double state_pub_rate_ = 2ms;
-  rclcpp::TimerBase::SharedPtr state_pub_timer_;
-  rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr pub_joint_state_;
-  void pubJointState();
-
-  void update();
-
 public:
-  SimpleMujocoRos2Interface(mj::Simulate * sim);
+  struct MujocoCommand
+  {
+    int mode = 2;  // 0: position, 1: velocity, 2: torque
+    std::vector<double> q_des;
+    std::vector<double> dq_des;
+    std::vector<double> tau_des;
+  };
+  std::shared_ptr<MujocoCommand> mj_cmd_ptr_;
+
+  SimpleMujocoRos2Interface(mj::Simulate * sim, const double Hz);
   ~SimpleMujocoRos2Interface() = default;
 
-  // Main control interface for mjcb_control callback
-  bool getLatestCommand(MujocoCommand & cmd_out);
-  void applyJointCommand(const mjModel * m, mjData * d);
+  void physicsThread(const char * filename);
+  void physicsLoop();
+  void spinnerLoop();
 
-  // Safety and status methods
-  bool isCommandValid() const;
-  bool isCommandTimedOut() const;
-  void applyEmergencyStop(const mjModel * m, mjData * d);
+private:
+  const int kDoF = 2;
 
-  // Utility methods
-  // void validateJointLimits(const mjModel * m, MujocoCommand & cmd);
+  mj::Simulate * sim_;
+  mjModel * m_ = nullptr;
+  mjData * d_ = nullptr;
+  mjModel * loadModel(const char * filename);
 
-  // Global access for mjcb_control callback
-  void setAsGlobalInstance()
+  rclcpp::Rate loop_rate_;
+
+  //* ----- Publisher / Subscriber -----------------------------------------------------------------
+  rclcpp::Subscription<sensor_msgs::msg::JointState>::SharedPtr sub_joint_cmd_;
+  void subMujocoCommand(const sensor_msgs::msg::JointState::SharedPtr msg);
+
+  rclcpp::Subscription<std_msgs::msg::Bool>::SharedPtr sub_gui_cmd_;
+  bool b_run_sim_ = false;
+
+  void subGuiCommand(const std_msgs::msg::Bool::SharedPtr msg);
+
+  rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr pub_joint_state_;
+  std::vector<double> q_mes_, dq_mes_, tau_mes_;
+
+  rclcpp::Publisher<std_msgs::msg::Bool>::SharedPtr pub_sim_run_;
+  bool is_sim_executed_ = false;
+
+  void pubMujocoState();
+
+  //* ----- METHOD _--------------------------------------------------------------------------------
+  void write();  // copy member variable to mujoco data
+  void read();   // copy mujoco data to member variable
+  void printCameraView()
   {
-    global_instance_ = this;
-  }
-  static SimpleMujocoRos2Interface * getGlobalInstance()
-  {
-    return global_instance_;
+    std::cout << "azimuth: " << sim_->cam.azimuth << " distance: " << sim_->cam.distance
+              << " elevation: " << sim_->cam.elevation << " lookat: " << sim_->cam.lookat[0] << ", "
+              << sim_->cam.lookat[1] << ", " << sim_->cam.lookat[2] << std::endl;
   }
 };
 

@@ -60,10 +60,22 @@
                 paths = rosPackages;
               })
             ];
+          };
 
-            # shellHook = ''
-            #   alias start_sim="nixGLIntel ./simple_mujoco_ros2_interface"
-            # '';
+          sim = pkgs.mkShell {
+            shellHook = ''
+              alias start_sim="nixGLIntel ./simple_mujoco_ros2_interface"
+              export PS1="(sim) $PS1"
+            '';
+
+            packages = [
+              pkgs.mujoco 
+              pkgs.glfw
+              pkgs.nixgl.nixGLIntel
+              (rospkgs.buildEnv {
+                paths = rosPackages;
+              })
+            ];
           };
 
           gui = pkgs.mkShell {

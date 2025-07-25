@@ -23,8 +23,10 @@ find_package(geometry_msgs REQUIRED)
 
 # --- Create executable file of node
 file(GLOB_RECURSE SOURCES
+  ${CMAKE_CURRENT_SOURCE_DIR}/${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cc
+
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES})
@@ -37,6 +39,7 @@ ament_target_dependencies(${PROJECT_NAME}
 )
 
 target_include_directories(${PROJECT_NAME}
+PRIVATE
   ${CMAKE_CURRENT_SOURCE_DIR}/include
   ${CMAKE_CURRENT_SOURCE_DIR}/include/simple_mujoco_ros2_interface
 )

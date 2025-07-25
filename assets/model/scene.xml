@@ -24,20 +24,13 @@
   </worldbody>
 
   <sensor>
-    <jointpos name="joint1_pos" joint="joint1" noise="50e-9"/> <!-- 0 -->
-    <jointpos name="joint2_pos" joint="joint2" noise="50e-9"/> <!-- 1 -->
+    <jointpos name="joint1_pos" joint="joint1"/> <!-- 0 -->
+    <jointpos name="joint2_pos" joint="joint2"/> <!-- 1 -->
     
-    <jointvel name="joint1_vel" joint="joint1" noise="50e-9"/> <!-- 2 -->
-    <jointvel name="joint2_vel" joint="joint2" noise="50e-9"/> <!-- 3 -->
+    <jointvel name="joint1_vel" joint="joint1"/> <!-- 2 -->
+    <jointvel name="joint2_vel" joint="joint2"/> <!-- 3 -->
 
-    <framepos     name="ee_pos"     objtype="site" objname="ee_site" /> <!-- 4, 5, 6 -->
-    <framequat    name="ee_quat"    objtype="site" objname="ee_site" /> <!-- 7, 8, 9, 10 -->
-    <framelinvel  name="ee_linvel"  objtype="site" objname="ee_site" /> <!-- 11, 12, 13 -->
-    <frameangvel  name="ee_angvel"  objtype="site" objname="ee_site" /> <!-- 14, 15, 16 -->
-    <framelinacc  name="ee_linacc"  objtype="site" objname="ee_site" /> <!-- 17, 18, 19 -->
-    <frameangacc  name="ee_angacc"  objtype="site" objname="ee_site" /> <!-- 20, 21, 22 -->
-
-    <force  site="ee_site" name="ee_force"  noise="0" /> <!-- 23, 24, 25 -->
-    <torque site="ee_site" name="ee_torque" noise="0" /> <!-- 26, 27, 28 -->
+    <jointactuatorfrc name="joint1_tau" joint="joint1"/> <!-- 4 -->
+    <jointactuatorfrc name="joint2_tau" joint="joint2"/> <!-- 5 -->
   </sensor>
 </mujoco>
