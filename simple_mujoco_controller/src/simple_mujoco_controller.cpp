@@ -43,6 +43,10 @@ SimpleMujocoController::SimpleMujocoController(const double Hz)
   }
 
   /* Define Subscriber */
+  sub_joy_cmd_ = this->create_subscription<sensor_msgs::msg::Joy>(
+    "joy", rclcpp::QoS(rclcpp::KeepLast(10)).reliable(),
+    std::bind(&SimpleMujocoController::subJoyCommand, this, std::placeholders::_1));
+
   const auto qos_sim_state = rclcpp::QoS(rclcpp::KeepLast(10)).reliable();
   sub_sim_state_ = this->create_subscription<std_msgs::msg::Bool>(
     "mj_sim_state", qos_sim_state,
@@ -93,7 +97,7 @@ void SimpleMujocoController::update()
     prev_time = current_time;
     // RCLCPP_INFO(this->get_logger(), "time: %.3f sec, timestep: %.3f ms", loop_time_, dt_ * 1000);
 
-    //* ----- Kinematics / Dynamics ----------------------------------------------------------------
+    /* ----- Kinematics / Dynamics -------------------------------------------------------------- */
     /* update joint states */
     robot_->setJointStates(q_mes_, dq_mes_);
 
@@ -111,7 +115,7 @@ void SimpleMujocoController::update()
     Vec2<double> tau_c = robot_->coriolis();
     Vec2<double> tau_g = robot_->gravity();
 
-    //* ----- Set Desired Trajectory ---------------------------------------------------------------
+    /* ----- Set Desired Trajectory ------------------------------------------------------------- */
     switch (traj_type_)
     {
     case TrajectoryType::CIRCLE: {
@@ -150,7 +154,7 @@ void SimpleMujocoController::update()
       break;
     }
 
-    //* ----- Control Law --------------------------------------------------------------------------
+    /* ----- Control Law ------------------------------------------------------------------------ */
     Vec2<double> Fc = kp_.cwiseProduct(p_des_ - p_cal_) + kd_.cwiseProduct(v_des_ - v_cal_);
     tau_des_ = J_t * Fc;
 
@@ -160,6 +164,15 @@ void SimpleMujocoController::update()
 
     loop_rate_.sleep();
   }
+}
+
+//* ----- ROS Interface ----------------------------------------------------------------------------
+
+void SimpleMujocoController::subJoyCommand(const sensor_msgs::msg::Joy::SharedPtr msg)
+{
+  double vx_cmd = msg->axes[4] * vx_max_;
+  double vy_cmd = msg->axes[5] * vy_max_;
+  cout << "vx_cmd: " << vx_cmd << ", vy_cmd: " << vy_cmd << endl;
 }
 
 void SimpleMujocoController::subSimulationState(const std_msgs::msg::Bool::SharedPtr msg)

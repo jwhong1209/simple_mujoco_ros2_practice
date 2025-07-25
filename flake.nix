@@ -28,6 +28,8 @@
 
         std-msgs
         sensor-msgs
+
+        joy
       ];
 
       # mylib = pkgs.callPackage ./mylib {};

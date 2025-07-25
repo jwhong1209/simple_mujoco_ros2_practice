@@ -11,6 +11,7 @@
 /* ROS2 Packages */
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/joint_state.hpp>
+#include <sensor_msgs/msg/joy.hpp>
 #include <std_msgs/msg/bool.hpp>
 
 /* Custom Libraries*/
@@ -57,6 +58,11 @@ private:
 
   //* ----- ROS Interface --------------------------------------------------------------------------
   rclcpp::Rate loop_rate_;
+
+  rclcpp::Subscription<sensor_msgs::msg::Joy>::SharedPtr sub_joy_cmd_;
+  void subJoyCommand(const sensor_msgs::msg::Joy::SharedPtr msg);
+  double vx_max_ = 0.2;  // [m/s]
+  double vy_max_ = 0.2;  // [m/s]
 
   rclcpp::Subscription<sensor_msgs::msg::JointState>::SharedPtr sub_joint_state_;
   void subJointState(const sensor_msgs::msg::JointState::SharedPtr msg);
