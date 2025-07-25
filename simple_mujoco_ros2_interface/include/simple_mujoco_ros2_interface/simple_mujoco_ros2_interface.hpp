@@ -51,13 +51,12 @@ public:
   void physicsLoop();
   void spinnerLoop();
 
-  // static SimpleMujocoRos2Interface & getInstance()
-  // {
-  //   static SimpleMujocoRos2Interface instance;
-  //   return instance;
-  // }
-
 private:
+  static SimpleMujocoRos2Interface * instance_;
+  static void controlCallback(const mjModel * m, mjData * d);
+  void write();  // copy member variable to mujoco data
+  void read();   // copy mujoco data to member variable
+
   const int kDoF = 2;
 
   mj::Simulate * sim_;
@@ -65,15 +64,15 @@ private:
   mjData * d_ = nullptr;
   mjModel * loadModel(const char * filename);
 
+  //* ----- ROS Interface --------------------------------------------------------------------------
   rclcpp::Rate loop_rate_;
 
-  //* ----- Publisher / Subscriber -----------------------------------------------------------------
   rclcpp::Subscription<sensor_msgs::msg::JointState>::SharedPtr sub_joint_cmd_;
   void subMujocoCommand(const sensor_msgs::msg::JointState::SharedPtr msg);
 
   rclcpp::Subscription<std_msgs::msg::Bool>::SharedPtr sub_gui_cmd_;
   void subGuiCommand(const std_msgs::msg::Bool::SharedPtr msg);
-  bool bIsSimRunTriggered_ = true;
+  bool bIsSimRunTriggered_ = false;
 
   rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr pub_joint_state_;
   std::vector<double> q_mes_, dq_mes_, tau_mes_;
@@ -83,13 +82,7 @@ private:
 
   void pubMujocoState();
 
-  //* ----- METHOD _--------------------------------------------------------------------------------
-  void write();  // copy member variable to mujoco data
-  void read();   // copy mujoco data to member variable
-  static void controlCallback(const mjModel * m, mjData * d);
-  
-  // Static instance pointer for callback access
-  static SimpleMujocoRos2Interface* instance_;
+  //* ----- Utils ----------------------------------------------------------------------------------
   void printCameraView()
   {
     std::cout << "azimuth: " << sim_->cam.azimuth << " distance: " << sim_->cam.distance

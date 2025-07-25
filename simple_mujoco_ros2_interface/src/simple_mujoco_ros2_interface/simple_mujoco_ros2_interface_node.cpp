@@ -13,7 +13,6 @@
 // limitations under the License.
 
 #include <chrono>
-#include <csignal>
 #include <iostream>
 #include <memory>
 #include <string>
@@ -44,12 +43,12 @@ int main(int argc, char ** argv)
                                             /* is_passive = */ false);
 
   rclcpp::init(argc, argv);
-  double Hz = 500;
+  const double Hz = 500;
   auto node = std::make_shared<SimpleMujocoRos2Interface>(sim.get(), Hz);
 
   //* set robot model file path *//
   std::string root = PROJECT_ROOT_DIR;
-  std::string model_path = root + "/../assets/model/scene.xml";
+  std::string model_path = root + "/assets/model/scene.xml";
   const char * filename = model_path.c_str();
 
   std::thread physics_thread(&SimpleMujocoRos2Interface::physicsThread, node.get(), filename);

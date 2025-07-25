@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.10)
 project(simple_mujoco_gui_plugin)
 
+# --- Set module path and include common project configuration
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../cmake)
+include(ProjectConfig)
+
 # ----- Set C++ standard & compile options ---------------------------------------------------------
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)

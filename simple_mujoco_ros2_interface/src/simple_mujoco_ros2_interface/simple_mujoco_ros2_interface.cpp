@@ -6,7 +6,7 @@ using namespace std;
 using Seconds = std::chrono::duration<double>;
 
 // Static instance pointer definition
-SimpleMujocoRos2Interface* SimpleMujocoRos2Interface::instance_ = nullptr;
+SimpleMujocoRos2Interface * SimpleMujocoRos2Interface::instance_ = nullptr;
 
 SimpleMujocoRos2Interface::SimpleMujocoRos2Interface(mj::Simulate * sim, const double Hz)
   : Node("simple_mujoco_ros2_interface"), sim_(sim), loop_rate_(Hz)
@@ -30,11 +30,15 @@ SimpleMujocoRos2Interface::SimpleMujocoRos2Interface(mj::Simulate * sim, const d
   mj_cmd_ptr_->tau_des.resize(kDoF);
 
   const auto qos = rclcpp::QoS(rclcpp::KeepLast(10), rmw_qos_profile_sensor_data);
+  pub_joint_state_ = this->create_publisher<sensor_msgs::msg::JointState>("mj_joint_states", qos);
+
   sub_joint_cmd_ = this->create_subscription<sensor_msgs::msg::JointState>(
     "mj_joint_command", qos,
     std::bind(&SimpleMujocoRos2Interface::subMujocoCommand, this, std::placeholders::_1));
 
-  pub_joint_state_ = this->create_publisher<sensor_msgs::msg::JointState>("mj_joint_states", qos);
+  sub_gui_cmd_ = this->create_subscription<std_msgs::msg::Bool>(
+    "mj_gui_command", qos,
+    std::bind(&SimpleMujocoRos2Interface::subGuiCommand, this, std::placeholders::_1));
 
   RCLCPP_INFO(this->get_logger(), "SimpleMujocoRos2Interface initialized");
 }
@@ -98,7 +102,8 @@ void SimpleMujocoRos2Interface::read()
 
 void SimpleMujocoRos2Interface::controlCallback(const mjModel * m, mjData * d)
 {
-  if (instance_) {
+  if (instance_)
+  {
     instance_->write();
     instance_->read();
   }
