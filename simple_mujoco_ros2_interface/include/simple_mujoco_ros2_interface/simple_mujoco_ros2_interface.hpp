@@ -78,7 +78,7 @@ private:
   std::vector<double> q_mes_, dq_mes_, tau_mes_;
 
   rclcpp::Publisher<std_msgs::msg::Bool>::SharedPtr pub_sim_run_;
-  bool bIsSimReady_ = false;
+  bool bIsSimRunning_ = false;
 
   void pubMujocoState();
 
