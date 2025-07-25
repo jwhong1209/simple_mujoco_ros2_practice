@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>FR3GuiPlugin</class>
- <widget class="QWidget" name="FR3GuiPlugin">
+ <class>SimpleMujocoGuiPlugin</class>
+ <widget class="QWidget" name="SimpleMujocoGuiPlugin">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>937</width>
+    <width>977</width>
     <height>755</height>
    </rect>
   </property>
@@ -84,86 +84,17 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="layoutWidget_6">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>520</y>
-     <width>451</width>
-     <height>227</height>
-    </rect>
-   </property>
-   <layout class="QGridLayout" name="gLayout_plt_tau1" columnstretch="0,0">
-    <item row="1" column="1">
-     <widget class="QCheckBox" name="scale_plt_tau1">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>100</width>
-        <height>23</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>175</width>
-        <height>23</height>
-       </size>
-      </property>
-      <property name="text">
-       <string>auto scale</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="0" colspan="2">
-     <widget class="QCustomPlot" name="plt_tau1" native="true">
-      <property name="minimumSize">
-       <size>
-        <width>400</width>
-        <height>195</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>799</width>
-        <height>210</height>
-       </size>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QWidget" name="layoutWidget">
+  <widget class="QWidget" name="layoutWidget_3">
    <property name="geometry">
     <rect>
      <x>10</x>
      <y>60</y>
-     <width>452</width>
+     <width>476</width>
      <height>227</height>
     </rect>
    </property>
-   <layout class="QGridLayout" name="gLayout_plt_q1" columnstretch="0,0">
-    <item row="0" column="0" colspan="2">
-     <widget class="QCustomPlot" name="plt_q1" native="true">
-      <property name="minimumSize">
-       <size>
-        <width>400</width>
-        <height>195</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>799</width>
-        <height>210</height>
-       </size>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1">
+   <layout class="QGridLayout" name="gLayout_plt_q1" columnstretch="0,0,0,0,0">
+    <item row="1" column="4">
      <widget class="QCheckBox" name="scale_plt_q1">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
@@ -188,22 +119,89 @@
       </property>
      </widget>
     </item>
-   </layout>
-  </widget>
-  <widget class="QWidget" name="layoutWidget_2">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>290</y>
-     <width>451</width>
-     <height>227</height>
-    </rect>
-   </property>
-   <layout class="QGridLayout" name="gLayout_plt_dq1" columnstretch="0,0">
+    <item row="1" column="2">
+     <widget class="QLabel" name="lbl_plt_ymin_q1">
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>175</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel
+{
+	//color:rgba(220, 226, 240, 1.0);
+	//background-color:rgba(0, 0, 0, 0);
+}
+</string>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Y-axis Min:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0" colspan="5">
+     <widget class="QCustomPlot" name="plt_q1" native="true">
+      <property name="minimumSize">
+       <size>
+        <width>450</width>
+        <height>195</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>799</width>
+        <height>210</height>
+       </size>
+      </property>
+     </widget>
+    </item>
     <item row="1" column="1">
-     <widget class="QCheckBox" name="scale_plt_dq1">
+     <widget class="QLineEdit" name="le_plt_ymax_q1">
       <property name="sizePolicy">
-       <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>75</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>125</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLineEdit
+{
+	//background-color:rgba(220, 226, 240, 1.0)
+}</string>
+      </property>
+      <property name="text">
+       <string>0.48</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="lbl_plt_ymax_q1">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
@@ -211,65 +209,77 @@
       <property name="minimumSize">
        <size>
         <width>100</width>
-        <height>23</height>
+        <height>24</height>
        </size>
       </property>
       <property name="maximumSize">
        <size>
         <width>175</width>
-        <height>23</height>
+        <height>24</height>
        </size>
       </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel
+{
+	//color:rgba(220, 226, 240, 1.0);
+	//background-color:rgba(0, 0, 0, 0);
+}
+</string>
+      </property>
       <property name="text">
-       <string>auto scale</string>
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Y-axis Max:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
     </item>
-    <item row="0" column="0" colspan="2">
-     <widget class="QCustomPlot" name="plt_dq1" native="true">
+    <item row="1" column="3">
+     <widget class="QLineEdit" name="le_plt_ymin_q1">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="minimumSize">
        <size>
-        <width>400</width>
-        <height>195</height>
+        <width>75</width>
+        <height>24</height>
        </size>
       </property>
       <property name="maximumSize">
        <size>
-        <width>799</width>
-        <height>210</height>
+        <width>125</width>
+        <height>24</height>
        </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLineEdit
+{
+	//background-color:rgba(220, 226, 240, 1.0)
+}</string>
+      </property>
+      <property name="text">
+       <string>0.32</string>
       </property>
      </widget>
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="layoutWidget_3">
+  <widget class="QWidget" name="layoutWidget_4">
    <property name="geometry">
     <rect>
-     <x>480</x>
+     <x>490</x>
      <y>60</y>
-     <width>452</width>
+     <width>476</width>
      <height>227</height>
     </rect>
    </property>
-   <layout class="QGridLayout" name="gLayout_plt_q2" columnstretch="0,0">
-    <item row="0" column="0" colspan="2">
-     <widget class="QCustomPlot" name="plt_q2" native="true">
-      <property name="minimumSize">
-       <size>
-        <width>400</width>
-        <height>195</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>799</width>
-        <height>210</height>
-       </size>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1">
+   <layout class="QGridLayout" name="gLayout_plt_q2" columnstretch="0,0,0,0,0">
+    <item row="1" column="4">
      <widget class="QCheckBox" name="scale_plt_q2">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
@@ -294,19 +304,167 @@
       </property>
      </widget>
     </item>
+    <item row="1" column="2">
+     <widget class="QLabel" name="lbl_plt_ymin_q2">
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>175</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel
+{
+	//color:rgba(220, 226, 240, 1.0);
+	//background-color:rgba(0, 0, 0, 0);
+}
+</string>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Y-axis Min:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0" colspan="5">
+     <widget class="QCustomPlot" name="plt_q2" native="true">
+      <property name="minimumSize">
+       <size>
+        <width>450</width>
+        <height>195</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>799</width>
+        <height>210</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="le_plt_ymax_q2">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>75</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>125</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLineEdit
+{
+	//background-color:rgba(220, 226, 240, 1.0)
+}</string>
+      </property>
+      <property name="text">
+       <string>0.48</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="lbl_plt_ymax_q2">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>175</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel
+{
+	//color:rgba(220, 226, 240, 1.0);
+	//background-color:rgba(0, 0, 0, 0);
+}
+</string>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Y-axis Max:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="3">
+     <widget class="QLineEdit" name="le_plt_ymin_q2">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>75</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>125</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLineEdit
+{
+	//background-color:rgba(220, 226, 240, 1.0)
+}</string>
+      </property>
+      <property name="text">
+       <string>0.32</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="layoutWidget_4">
+  <widget class="QWidget" name="layoutWidget_5">
    <property name="geometry">
     <rect>
-     <x>480</x>
+     <x>490</x>
      <y>290</y>
-     <width>451</width>
+     <width>476</width>
      <height>227</height>
     </rect>
    </property>
-   <layout class="QGridLayout" name="gLayout_plt_dq2" columnstretch="0,0">
-    <item row="1" column="1">
+   <layout class="QGridLayout" name="gLayout_plt_dq2" columnstretch="0,0,0,0,0">
+    <item row="1" column="4">
      <widget class="QCheckBox" name="scale_plt_dq2">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
@@ -331,11 +489,38 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="0" colspan="2">
+    <item row="1" column="2">
+     <widget class="QLabel" name="lbl_plt_ymin_dq2">
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>175</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel
+{
+	//color:rgba(220, 226, 240, 1.0);
+	//background-color:rgba(0, 0, 0, 0);
+}
+</string>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Y-axis Min:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0" colspan="5">
      <widget class="QCustomPlot" name="plt_dq2" native="true">
       <property name="minimumSize">
        <size>
-        <width>400</width>
+        <width>450</width>
         <height>195</height>
        </size>
       </property>
@@ -347,19 +532,494 @@
       </property>
      </widget>
     </item>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="le_plt_ymax_dq2">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>75</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>125</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLineEdit
+{
+	//background-color:rgba(220, 226, 240, 1.0)
+}</string>
+      </property>
+      <property name="text">
+       <string>0.48</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="lbl_plt_ymax_dq2">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>175</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel
+{
+	//color:rgba(220, 226, 240, 1.0);
+	//background-color:rgba(0, 0, 0, 0);
+}
+</string>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Y-axis Max:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="3">
+     <widget class="QLineEdit" name="le_plt_ymin_dq2">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>75</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>125</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLineEdit
+{
+	//background-color:rgba(220, 226, 240, 1.0)
+}</string>
+      </property>
+      <property name="text">
+       <string>0.32</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QWidget" name="layoutWidget_7">
    <property name="geometry">
     <rect>
-     <x>480</x>
-     <y>520</y>
-     <width>451</width>
+     <x>10</x>
+     <y>290</y>
+     <width>476</width>
      <height>227</height>
     </rect>
    </property>
-   <layout class="QGridLayout" name="gLayout_plt_tau2" columnstretch="0,0">
+   <layout class="QGridLayout" name="gLayout_plt_dq1" columnstretch="0,0,0,0,0">
+    <item row="1" column="4">
+     <widget class="QCheckBox" name="scale_plt_dq1">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>23</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>175</width>
+        <height>23</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>auto scale</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="2">
+     <widget class="QLabel" name="lbl_plt_ymin_dq1">
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>175</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel
+{
+	//color:rgba(220, 226, 240, 1.0);
+	//background-color:rgba(0, 0, 0, 0);
+}
+</string>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Y-axis Min:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0" colspan="5">
+     <widget class="QCustomPlot" name="plt_dq1" native="true">
+      <property name="minimumSize">
+       <size>
+        <width>450</width>
+        <height>195</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>799</width>
+        <height>210</height>
+       </size>
+      </property>
+     </widget>
+    </item>
     <item row="1" column="1">
+     <widget class="QLineEdit" name="le_plt_ymax_dq1">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>75</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>125</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLineEdit
+{
+	//background-color:rgba(220, 226, 240, 1.0)
+}</string>
+      </property>
+      <property name="text">
+       <string>0.48</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="lbl_plt_ymax_dq1">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>175</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel
+{
+	//color:rgba(220, 226, 240, 1.0);
+	//background-color:rgba(0, 0, 0, 0);
+}
+</string>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Y-axis Max:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="3">
+     <widget class="QLineEdit" name="le_plt_ymin_dq1">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>75</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>125</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLineEdit
+{
+	//background-color:rgba(220, 226, 240, 1.0)
+}</string>
+      </property>
+      <property name="text">
+       <string>0.32</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget_8">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>520</y>
+     <width>476</width>
+     <height>227</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gLayout_plt_tau1" columnstretch="0,0,0,0,0">
+    <item row="1" column="4">
+     <widget class="QCheckBox" name="scale_plt_tau1">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>23</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>175</width>
+        <height>23</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>auto scale</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="2">
+     <widget class="QLabel" name="lbl_plt_ymin_tau1">
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>175</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel
+{
+	//color:rgba(220, 226, 240, 1.0);
+	//background-color:rgba(0, 0, 0, 0);
+}
+</string>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Y-axis Min:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0" colspan="5">
+     <widget class="QCustomPlot" name="plt_tau1" native="true">
+      <property name="minimumSize">
+       <size>
+        <width>450</width>
+        <height>195</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>799</width>
+        <height>210</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="le_plt_ymax_tau1">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>75</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>125</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLineEdit
+{
+	//background-color:rgba(220, 226, 240, 1.0)
+}</string>
+      </property>
+      <property name="text">
+       <string>0.48</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="lbl_plt_ymax_tau1">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>175</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel
+{
+	//color:rgba(220, 226, 240, 1.0);
+	//background-color:rgba(0, 0, 0, 0);
+}
+</string>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Y-axis Max:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="3">
+     <widget class="QLineEdit" name="le_plt_ymin_tau1">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>75</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>125</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLineEdit
+{
+	//background-color:rgba(220, 226, 240, 1.0)
+}</string>
+      </property>
+      <property name="text">
+       <string>0.32</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget_6">
+   <property name="geometry">
+    <rect>
+     <x>490</x>
+     <y>520</y>
+     <width>476</width>
+     <height>227</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gLayout_plt_tau2" columnstretch="0,0,0,0,0">
+    <item row="1" column="4">
      <widget class="QCheckBox" name="scale_plt_tau2">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
@@ -384,11 +1044,38 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="0" colspan="2">
+    <item row="1" column="2">
+     <widget class="QLabel" name="lbl_plt_ymin_tau2">
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>175</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel
+{
+	//color:rgba(220, 226, 240, 1.0);
+	//background-color:rgba(0, 0, 0, 0);
+}
+</string>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Y-axis Min:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0" colspan="5">
      <widget class="QCustomPlot" name="plt_tau2" native="true">
       <property name="minimumSize">
        <size>
-        <width>400</width>
+        <width>450</width>
         <height>195</height>
        </size>
       </property>
@@ -397,6 +1084,111 @@
         <width>799</width>
         <height>210</height>
        </size>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="le_plt_ymax_tau2">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>75</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>125</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLineEdit
+{
+	//background-color:rgba(220, 226, 240, 1.0)
+}</string>
+      </property>
+      <property name="text">
+       <string>0.48</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="lbl_plt_ymax_tau2">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>175</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel
+{
+	//color:rgba(220, 226, 240, 1.0);
+	//background-color:rgba(0, 0, 0, 0);
+}
+</string>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Y-axis Max:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="3">
+     <widget class="QLineEdit" name="le_plt_ymin_tau2">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>75</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>125</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLineEdit
+{
+	//background-color:rgba(220, 226, 240, 1.0)
+}</string>
+      </property>
+      <property name="text">
+       <string>0.32</string>
       </property>
      </widget>
     </item>

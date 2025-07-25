@@ -1,6 +1,6 @@
 <library path="simple_mujoco_gui_plugin">
   <class name="simple_mujoco_gui_plugin/SimpleMujocoGuiPlugin" type="simple_mujoco_gui_plugin::SimpleMujocoGuiPlugin" base_class_type="rqt_gui_cpp::Plugin">
-    <description> An RQt GUI node for MuJoCo UI Interaction. </description>
+    <description> A Simple RQt GUI plugin for MuJoCo UI Interaction. </description>
     <qtgui>
       <!-- <group>
         <label>Visualization</label>
