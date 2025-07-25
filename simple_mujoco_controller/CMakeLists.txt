@@ -15,6 +15,8 @@ find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 
+find_package(Eigen3 REQUIRED)
+
 # --- Create executable file of node
 add_executable(${PROJECT_NAME} 
   src/simple_mujoco_controller.cpp

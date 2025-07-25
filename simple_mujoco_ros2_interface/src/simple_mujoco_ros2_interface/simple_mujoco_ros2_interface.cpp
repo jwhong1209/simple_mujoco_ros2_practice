@@ -11,8 +11,8 @@ SimpleMujocoRos2Interface * SimpleMujocoRos2Interface::instance_ = nullptr;
 SimpleMujocoRos2Interface::SimpleMujocoRos2Interface(mj::Simulate * sim, const double Hz)
   : Node("simple_mujoco_ros2_interface"), sim_(sim), loop_rate_(Hz)
 {
-  // Set static instance pointer
-  instance_ = this;
+  instance_ = this;  // set static instance pointer
+
   /* Initialize simulation UI */
   sim_->ui0_enable = false;        // left UI is disabled (TAB)
   sim_->ui1_enable = false;        // right UI <is disabled (Shift + TAB)
@@ -29,24 +29,29 @@ SimpleMujocoRos2Interface::SimpleMujocoRos2Interface(mj::Simulate * sim, const d
   mj_cmd_ptr_->dq_des.resize(kDoF);
   mj_cmd_ptr_->tau_des.resize(kDoF);
 
-  const auto qos_sim = rclcpp::QoS(rclcpp::KeepLast(10), rmw_qos_profile_sensor_data);
-  pub_joint_state_ =
-    this->create_publisher<sensor_msgs::msg::JointState>("mj_joint_state", qos_sim);
-
-  const auto qos_ctrl = rclcpp::QoS(rclcpp::KeepLast(10), rmw_qos_profile_sensor_data);
+  /* Define Subscriber */
+  const auto qos_jnt_command = rclcpp::QoS(rclcpp::KeepLast(10), rmw_qos_profile_sensor_data);
   sub_joint_cmd_ = this->create_subscription<sensor_msgs::msg::JointState>(
-    "mj_joint_command", qos_ctrl,
-    std::bind(&SimpleMujocoRos2Interface::subMujocoCommand, this, std::placeholders::_1));
+    "mj_joint_command", qos_jnt_command,
+    std::bind(&SimpleMujocoRos2Interface::subJointCommand, this, std::placeholders::_1));
 
   const auto qos_gui = rclcpp::QoS(rclcpp::KeepLast(10)).reliable().durability_volatile();
   sub_gui_cmd_ = this->create_subscription<std_msgs::msg::Bool>(
     "mj_gui_command", qos_gui,
     std::bind(&SimpleMujocoRos2Interface::subGuiCommand, this, std::placeholders::_1));
 
+  /* Define Publisher */
+  const auto qos_sim_state = rclcpp::QoS(rclcpp::KeepLast(10)).reliable();
+  pub_sim_state_ = this->create_publisher<std_msgs::msg::Bool>("mj_sim_state", qos_sim_state);
+
+  const auto qos_jnt_state = rclcpp::QoS(rclcpp::KeepLast(10), rmw_qos_profile_sensor_data);
+  pub_joint_state_ =
+    this->create_publisher<sensor_msgs::msg::JointState>("mj_joint_state", qos_jnt_state);
+
   RCLCPP_INFO(this->get_logger(), "SimpleMujocoRos2Interface initialized");
 }
 
-void SimpleMujocoRos2Interface::subMujocoCommand(const sensor_msgs::msg::JointState::SharedPtr msg)
+void SimpleMujocoRos2Interface::subJointCommand(const sensor_msgs::msg::JointState::SharedPtr msg)
 {
   if (msg->name.size() != kDoF || msg->position.size() != kDoF || msg->velocity.size() != kDoF ||
       msg->effort.size() != kDoF)
@@ -294,11 +299,18 @@ void SimpleMujocoRos2Interface::physicsLoop()
 
 void SimpleMujocoRos2Interface::spinnerLoop()
 {
+  auto msg = std_msgs::msg::Bool();
+
   while (rclcpp::ok())
   {
     rclcpp::spin_some(this->shared_from_this());
+    {
+      const std::unique_lock<std::recursive_mutex> lock(sim_->mtx);
+      bIsSimRunning_ = sim_->run;
+    }
+    msg.data = bIsSimRunning_;
+    pub_sim_state_->publish(msg);
 
-    // this->read();  // ? where to locaate
     this->pubMujocoState();
     loop_rate_.sleep();
   }

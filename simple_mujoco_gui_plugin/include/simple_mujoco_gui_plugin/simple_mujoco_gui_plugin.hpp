@@ -87,10 +87,10 @@ private:
 
   /* Subscriber */
   rclcpp::Subscription<sensor_msgs::msg::JointState>::SharedPtr sub_joint_cmd_;
-  void subControllerState(const sensor_msgs::msg::JointState::SharedPtr msg);
+  void subJointCommand(const sensor_msgs::msg::JointState::SharedPtr msg);
 
   rclcpp::Subscription<sensor_msgs::msg::JointState>::SharedPtr sub_joint_state_;
-  void subMujocoState(const sensor_msgs::msg::JointState::SharedPtr msg);
+  void subJointState(const sensor_msgs::msg::JointState::SharedPtr msg);
 
 public:
   SimpleMujocoGuiPlugin();

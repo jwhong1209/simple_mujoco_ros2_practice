@@ -68,7 +68,7 @@ private:
   rclcpp::Rate loop_rate_;
 
   rclcpp::Subscription<sensor_msgs::msg::JointState>::SharedPtr sub_joint_cmd_;
-  void subMujocoCommand(const sensor_msgs::msg::JointState::SharedPtr msg);
+  void subJointCommand(const sensor_msgs::msg::JointState::SharedPtr msg);
 
   rclcpp::Subscription<std_msgs::msg::Bool>::SharedPtr sub_gui_cmd_;
   void subGuiCommand(const std_msgs::msg::Bool::SharedPtr msg);
@@ -77,7 +77,7 @@ private:
   rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr pub_joint_state_;
   std::vector<double> q_mes_, dq_mes_, tau_mes_;
 
-  rclcpp::Publisher<std_msgs::msg::Bool>::SharedPtr pub_sim_run_;
+  rclcpp::Publisher<std_msgs::msg::Bool>::SharedPtr pub_sim_state_;
   bool bIsSimRunning_ = false;
 
   void pubMujocoState();
