@@ -28,10 +28,6 @@
 
         std-msgs
         sensor-msgs
-        geometry-msgs
-
-        # rmw-implementation
-        # rmw-fastrtps-cpp
       ];
 
       # mylib = pkgs.callPackage ./mylib {};

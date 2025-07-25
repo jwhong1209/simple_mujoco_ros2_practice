@@ -1,17 +1,18 @@
 #include "simple_mujoco_ros2_interface.hpp"
 
-#include "array_safety.h"
-
-// #include <rclcpp/qos.hpp>
-
 namespace mju = ::mujoco::sample_util;
 using namespace std;
 
 using Seconds = std::chrono::duration<double>;
 
+// Static instance pointer definition
+SimpleMujocoRos2Interface* SimpleMujocoRos2Interface::instance_ = nullptr;
+
 SimpleMujocoRos2Interface::SimpleMujocoRos2Interface(mj::Simulate * sim, const double Hz)
   : Node("simple_mujoco_ros2_interface"), sim_(sim), loop_rate_(Hz)
 {
+  // Set static instance pointer
+  instance_ = this;
   /* Initialize simulation UI */
   sim_->ui0_enable = false;        // left UI is disabled (TAB)
   sim_->ui1_enable = false;        // right UI <is disabled (Shift + TAB)
@@ -57,12 +58,13 @@ void SimpleMujocoRos2Interface::subMujocoCommand(const sensor_msgs::msg::JointSt
 
 void SimpleMujocoRos2Interface::subGuiCommand(const std_msgs::msg::Bool::SharedPtr msg)
 {
-  b_run_sim_ = msg->data;
+  bIsSimRunTriggered_ = msg->data;
 }
 
 void SimpleMujocoRos2Interface::write()
 {
   const std::unique_lock<std::recursive_mutex> lock(sim_->mtx);
+  sim_->run = bIsSimRunTriggered_;  // triggered by GUI command
 
   switch (mj_cmd_ptr_->mode)
   {
@@ -91,6 +93,14 @@ void SimpleMujocoRos2Interface::read()
     q_mes_[i] = d_->sensordata[i];
     dq_mes_[i] = d_->sensordata[i + kDoF];
     tau_mes_[i] = d_->sensordata[i + 2 * kDoF];
+  }
+}
+
+void SimpleMujocoRos2Interface::controlCallback(const mjModel * m, mjData * d)
+{
+  if (instance_) {
+    instance_->write();
+    instance_->read();
   }
 }
 
@@ -175,6 +185,7 @@ void SimpleMujocoRos2Interface::physicsThread(const char * filename)
       const std::unique_lock<std::recursive_mutex> lock(sim_->mtx);
       d_ = mj_makeData(m_);
     }
+
     if (d_)
     {
       sim_->Load(m_, d_, filename);
@@ -187,7 +198,7 @@ void SimpleMujocoRos2Interface::physicsThread(const char * filename)
       sim_->LoadMessageClear();
     }
   }
-
+  mjcb_control = &SimpleMujocoRos2Interface::controlCallback;
   this->physicsLoop();
 
   mj_deleteData(d_);
@@ -232,8 +243,6 @@ void SimpleMujocoRos2Interface::physicsLoop()
           syncSim = d_->time;
           sim_->speed_changed = false;
 
-          // this->write();
-
           // run single step, let next iteration deal with timing
           mj_step(m_, d_);
           stepped = true;
@@ -254,8 +263,6 @@ void SimpleMujocoRos2Interface::physicsLoop()
                 std::chrono::duration<double>(elapsedCPU).count() / elapsedSim;
               measured = true;
             }
-
-            // this->write();
 
             mj_step(m_, d_);
             stepped = true;
@@ -281,9 +288,9 @@ void SimpleMujocoRos2Interface::spinnerLoop()
 {
   while (rclcpp::ok())
   {
-    rclcpp::spin_some(this->shared_from_this());
+    // rclcpp::spin_some(this->shared_from_this());
 
-    this->read();  // ? where to locaate
+    // this->read();  // ? where to locaate
     this->pubMujocoState();
     loop_rate_.sleep();
   }

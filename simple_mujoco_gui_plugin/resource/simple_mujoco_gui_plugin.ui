@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FR3GuiPlugin</class>
+ <widget class="QWidget" name="FR3GuiPlugin">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>937</width>
+    <height>755</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget
+{
+	//background-color:rgba(30, 30, 30, 1.0)
+}</string>
+  </property>
+  <widget class="QWidget" name="gridLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>20</y>
+     <width>201</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="1">
+     <widget class="QCheckBox" name="ckBox_sim_run">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>82</width>
+        <height>22</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="lbl_sim_run">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>106</width>
+        <height>21</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel
+{
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #E1E1E1, stop: 0.4 #DDDDDD,
+                                stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);
+    border: 2px solid #C4C4C3;
+    border-bottom-color: #C2C7CB; /* same as the pane color */
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}</string>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Run Simulator&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget_6">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>520</y>
+     <width>451</width>
+     <height>227</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gLayout_plt_tau1" columnstretch="0,0">
+    <item row="1" column="1">
+     <widget class="QCheckBox" name="scale_plt_tau1">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>23</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>175</width>
+        <height>23</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>auto scale</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0" colspan="2">
+     <widget class="QCustomPlot" name="plt_tau1" native="true">
+      <property name="minimumSize">
+       <size>
+        <width>400</width>
+        <height>195</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>799</width>
+        <height>210</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>60</y>
+     <width>452</width>
+     <height>227</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gLayout_plt_q1" columnstretch="0,0">
+    <item row="0" column="0" colspan="2">
+     <widget class="QCustomPlot" name="plt_q1" native="true">
+      <property name="minimumSize">
+       <size>
+        <width>400</width>
+        <height>195</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>799</width>
+        <height>210</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QCheckBox" name="scale_plt_q1">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>23</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>175</width>
+        <height>23</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>auto scale</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>290</y>
+     <width>451</width>
+     <height>227</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gLayout_plt_dq1" columnstretch="0,0">
+    <item row="1" column="1">
+     <widget class="QCheckBox" name="scale_plt_dq1">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>23</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>175</width>
+        <height>23</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>auto scale</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0" colspan="2">
+     <widget class="QCustomPlot" name="plt_dq1" native="true">
+      <property name="minimumSize">
+       <size>
+        <width>400</width>
+        <height>195</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>799</width>
+        <height>210</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget_3">
+   <property name="geometry">
+    <rect>
+     <x>480</x>
+     <y>60</y>
+     <width>452</width>
+     <height>227</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gLayout_plt_q2" columnstretch="0,0">
+    <item row="0" column="0" colspan="2">
+     <widget class="QCustomPlot" name="plt_q2" native="true">
+      <property name="minimumSize">
+       <size>
+        <width>400</width>
+        <height>195</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>799</width>
+        <height>210</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QCheckBox" name="scale_plt_q2">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>23</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>175</width>
+        <height>23</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>auto scale</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget_4">
+   <property name="geometry">
+    <rect>
+     <x>480</x>
+     <y>290</y>
+     <width>451</width>
+     <height>227</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gLayout_plt_dq2" columnstretch="0,0">
+    <item row="1" column="1">
+     <widget class="QCheckBox" name="scale_plt_dq2">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>23</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>175</width>
+        <height>23</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>auto scale</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0" colspan="2">
+     <widget class="QCustomPlot" name="plt_dq2" native="true">
+      <property name="minimumSize">
+       <size>
+        <width>400</width>
+        <height>195</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>799</width>
+        <height>210</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget_7">
+   <property name="geometry">
+    <rect>
+     <x>480</x>
+     <y>520</y>
+     <width>451</width>
+     <height>227</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gLayout_plt_tau2" columnstretch="0,0">
+    <item row="1" column="1">
+     <widget class="QCheckBox" name="scale_plt_tau2">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>100</width>
+        <height>23</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>175</width>
+        <height>23</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>auto scale</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0" colspan="2">
+     <widget class="QCustomPlot" name="plt_tau2" native="true">
+      <property name="minimumSize">
+       <size>
+        <width>400</width>
+        <height>195</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>799</width>
+        <height>210</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QCustomPlot</class>
+   <extends>QWidget</extends>
+   <header>qcustomplot.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

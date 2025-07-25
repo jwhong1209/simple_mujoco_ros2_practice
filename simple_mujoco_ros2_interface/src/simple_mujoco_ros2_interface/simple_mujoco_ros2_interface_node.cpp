@@ -13,6 +13,7 @@
 // limitations under the License.
 
 #include <chrono>
+#include <csignal>
 #include <iostream>
 #include <memory>
 #include <string>
@@ -53,12 +54,12 @@ int main(int argc, char ** argv)
 
   std::thread physics_thread(&SimpleMujocoRos2Interface::physicsThread, node.get(), filename);
   // FIXME: segmentation fault when creating ROS thread
-  // std::thread ros_thread(&SimpleMujocoRos2Interface::spinnerLoop, node.get());
+  std::thread ros_thread(&SimpleMujocoRos2Interface::spinnerLoop, node.get());
 
   sim->RenderLoop();  // start simulation UI loop (blocking call)
 
-  physics_thread.join()
-    // ros_thread.join();
+  physics_thread.join();
+  ros_thread.join();
 
-    return 0;
+  return 0;
 }
