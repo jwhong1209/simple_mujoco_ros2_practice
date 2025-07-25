@@ -29,15 +29,18 @@ SimpleMujocoRos2Interface::SimpleMujocoRos2Interface(mj::Simulate * sim, const d
   mj_cmd_ptr_->dq_des.resize(kDoF);
   mj_cmd_ptr_->tau_des.resize(kDoF);
 
-  const auto qos = rclcpp::QoS(rclcpp::KeepLast(10), rmw_qos_profile_sensor_data);
-  pub_joint_state_ = this->create_publisher<sensor_msgs::msg::JointState>("mj_joint_states", qos);
+  const auto qos_sim = rclcpp::QoS(rclcpp::KeepLast(10), rmw_qos_profile_sensor_data);
+  pub_joint_state_ =
+    this->create_publisher<sensor_msgs::msg::JointState>("mj_joint_state", qos_sim);
 
+  const auto qos_ctrl = rclcpp::QoS(rclcpp::KeepLast(10), rmw_qos_profile_sensor_data);
   sub_joint_cmd_ = this->create_subscription<sensor_msgs::msg::JointState>(
-    "mj_joint_command", qos,
+    "mj_joint_command", qos_ctrl,
     std::bind(&SimpleMujocoRos2Interface::subMujocoCommand, this, std::placeholders::_1));
 
+  const auto qos_gui = rclcpp::QoS(rclcpp::KeepLast(10)).reliable().durability_volatile();
   sub_gui_cmd_ = this->create_subscription<std_msgs::msg::Bool>(
-    "mj_gui_command", qos,
+    "mj_gui_command", qos_gui,
     std::bind(&SimpleMujocoRos2Interface::subGuiCommand, this, std::placeholders::_1));
 
   RCLCPP_INFO(this->get_logger(), "SimpleMujocoRos2Interface initialized");
@@ -293,7 +296,7 @@ void SimpleMujocoRos2Interface::spinnerLoop()
 {
   while (rclcpp::ok())
   {
-    // rclcpp::spin_some(this->shared_from_this());
+    rclcpp::spin_some(this->shared_from_this());
 
     // this->read();  // ? where to locaate
     this->pubMujocoState();
