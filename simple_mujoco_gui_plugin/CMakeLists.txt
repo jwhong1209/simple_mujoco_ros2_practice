@@ -1,10 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 project(simple_mujoco_gui_plugin)
 
-# --- Set module path and include common project configuration
-set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../cmake)
-include(ProjectConfig)
-
 # ----- Set C++ standard & compile options ---------------------------------------------------------
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
@@ -22,9 +18,6 @@ find_package(qt_gui_cpp REQUIRED)
 find_package(rqt_gui_cpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
-find_package(geometry_msgs REQUIRED)
-# find_package(elmo_msgs REQUIRED)
-# find_package(mylib REQUIRED)
 
 find_package(Qt5 COMPONENTS REQUIRED
   PrintSupport
@@ -67,8 +60,6 @@ ament_target_dependencies(${PROJECT_NAME}
 
   std_msgs
   sensor_msgs
-  geometry_msgs
-  elmo_msgs
 )
 
 target_include_directories(${PROJECT_NAME} SYSTEM PUBLIC
@@ -80,13 +71,7 @@ target_include_directories(${PROJECT_NAME} SYSTEM PUBLIC
   ${Qt5Core_INCLUDE_DIRS}
   ${Qt5Widgets_INCLUDE_DIRS}
   ${CMAKE_CURRENT_BINARY_DIR}
-  # ${MYLIB_PATH}/include
 )
-
-# target_link_directories(${PROJECT_NAME}
-# PRIVATE
-#   ${MYLIB_PATH}/lib
-# )
 
 target_link_libraries(${PROJECT_NAME}
   ${rclcpp_LIBRARIES}
@@ -98,8 +83,6 @@ target_link_libraries(${PROJECT_NAME}
   Qt5::Widgets
   Qt5::Core
   Qt5::Gui
-
-  # mylib
 )
 
 # ----- Installation -------------------------------------------------------------------------------
@@ -112,7 +95,7 @@ install(TARGETS ${PROJECT_NAME}
 )
 
 install(PROGRAMS scripts/${PROJECT_NAME}
-  DESTINATION lib/${PROJECT_NAME} # ! this is `lib` not `bin`
+  DESTINATION lib/${PROJECT_NAME}
 )
 
 install(DIRECTORY include
