@@ -4,7 +4,7 @@
   <name>simple_mujoco_gui_plugin</name>
   <version>0.0.0</version>
   <description>
-    This package is an RQt GUI node for MuJoCo UI Interaction.
+    This package is a RQt GUI plugin for MuJoCo UI Interaction.
   </description>
   <maintainer email="jwhong1209@gmail.com">jwhong1209</maintainer>
   <author>Jeongwoo Hong</author>
@@ -17,9 +17,6 @@
 
   <depend>std_msgs</depend>
   <depend>sensor_msgs</depend>
-  <depend>geometry_msgs</depend>
-
-  <!-- <depend>elmo_msgs</depend> -->
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>

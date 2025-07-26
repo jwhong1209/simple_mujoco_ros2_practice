@@ -28,17 +28,17 @@
 
         std-msgs
         sensor-msgs
+
+        joy
       ];
 
       # mylib = pkgs.callPackage ./mylib {};
       # elmo-msgs = rospkgs.callPackage ./elmo_msgs {};
 
-      # elmo-gui-plugin = rospkgs.callPackage ./elmo_gui_plugin {
-      #   inherit mylib elmo-msgs;
-      # };
+      simple-mujoco-gui-plugin = rospkgs.callPackage ./simple_mujoco_gui_plugin {};
 
       guiPackages = [
-        # elmo-gui-plugin
+        simple-mujoco-gui-plugin
         pkgs.nixgl.nixGLIntel
       ];
       

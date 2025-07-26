@@ -4,16 +4,12 @@
 , pluginlib
 , std-msgs
 , sensor-msgs
-, geometry-msgs
 , qt-gui-core
 , rqt-gui
 , rqt-gui-py
 , rqt-gui-cpp
 , qtcreator
 , qt5Full
-
-# , mylib
-# , elmo-msgs
 }:
 
 buildRosPackage {
@@ -27,19 +23,15 @@ buildRosPackage {
     pluginlib
     std-msgs
     sensor-msgs
-    geometry-msgs
     qt-gui-core
     rqt-gui
     rqt-gui-py
     rqt-gui-cpp
     qtcreator
     qt5Full
-
-    # mylib
-    # elmo-msgs
   ];  
   
   meta = {
-    description = "RQt GUI node for MuJoCo UI Interaction";
+    description = "RQt GUI plugin for MuJoCo UI Interaction";
   };
 }

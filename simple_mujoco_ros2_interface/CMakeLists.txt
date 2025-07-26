@@ -2,8 +2,9 @@
 cmake_minimum_required(VERSION 3.10)
 project(simple_mujoco_ros2_interface)
 
-# --- Set repo's absolute directory
-add_definitions(-DPROJECT_ROOT_DIR="${CMAKE_SOURCE_DIR}")
+# --- Set module path and include common project configuration
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../cmake)
+include(ProjectConfig)
 
 # --- set C++ Standard
 set(CMAKE_CXX_STANDARD 17)
@@ -25,7 +26,6 @@ file(GLOB_RECURSE SOURCES
   ${CMAKE_CURRENT_SOURCE_DIR}/${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cc
-
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES})
