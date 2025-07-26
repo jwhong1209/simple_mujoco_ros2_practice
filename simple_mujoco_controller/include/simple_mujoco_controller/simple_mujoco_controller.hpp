@@ -44,7 +44,7 @@ private:
   double traj_start_time_ = 3.0;
   double traj_end_time_ = 9.0;
 
-  TrajectoryType traj_type_ = TrajectoryType::CIRCLE;
+  TrajectoryType traj_type_ = TrajectoryType::TELEOP;
 
   const int kDoF = 2;
 

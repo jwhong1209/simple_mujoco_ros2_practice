@@ -118,6 +118,12 @@ void SimpleMujocoController::update()
     /* ----- Set Desired Trajectory ------------------------------------------------------------- */
     switch (traj_type_)
     {
+    case TrajectoryType::TELEOP: {
+      p_des_ = p_cal_ + v_des_ * dt_;
+      a_des_.setZero();
+      break;
+    }
+
     case TrajectoryType::CIRCLE: {
       const bool bIsTrajRunning = (traj_start_time_ <= loop_time_ && loop_time_ < traj_end_time_);
 
@@ -170,9 +176,8 @@ void SimpleMujocoController::update()
 
 void SimpleMujocoController::subJoyCommand(const sensor_msgs::msg::Joy::SharedPtr msg)
 {
-  double vx_cmd = msg->axes[4] * vx_max_;
-  double vy_cmd = msg->axes[5] * vy_max_;
-  cout << "vx_cmd: " << vx_cmd << ", vy_cmd: " << vy_cmd << endl;
+  v_des_(0) = -1 * msg->axes[4] * vx_max_;
+  v_des_(1) = msg->axes[5] * vy_max_;
 }
 
 void SimpleMujocoController::subSimulationState(const std_msgs::msg::Bool::SharedPtr msg)
