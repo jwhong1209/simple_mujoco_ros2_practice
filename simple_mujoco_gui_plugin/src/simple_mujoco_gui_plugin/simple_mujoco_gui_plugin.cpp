@@ -33,15 +33,15 @@ SimpleMujocoGuiPlugin::SimpleMujocoGuiPlugin() : rqt_gui_cpp::Plugin(), widget_(
   const auto qos_gui = rclcpp::QoS(rclcpp::KeepLast(10)).reliable().durability_volatile();
   pub_gui_cmd_ = node_->create_publisher<std_msgs::msg::Bool>("mj_gui_command", qos_gui);
 
-  const auto qos_ctrl = rclcpp::QoS(rclcpp::KeepLast(10), rmw_qos_profile_sensor_data);
+  const auto qos_jnt_command = rclcpp::QoS(rclcpp::KeepLast(10), rmw_qos_profile_sensor_data);
   sub_joint_cmd_ = node_->create_subscription<sensor_msgs::msg::JointState>(
-    "mj_joint_command", qos_ctrl,
-    std::bind(&SimpleMujocoGuiPlugin::subControllerState, this, std::placeholders::_1));
+    "mj_joint_command", qos_jnt_command,
+    std::bind(&SimpleMujocoGuiPlugin::subJointCommand, this, std::placeholders::_1));
 
-  const auto qos_sim = rclcpp::QoS(rclcpp::KeepLast(10), rmw_qos_profile_sensor_data);
+  const auto qos_jnt_state = rclcpp::QoS(rclcpp::KeepLast(10), rmw_qos_profile_sensor_data);
   sub_joint_state_ = node_->create_subscription<sensor_msgs::msg::JointState>(
-    "mj_joint_state", qos_sim,
-    std::bind(&SimpleMujocoGuiPlugin::subMujocoState, this, std::placeholders::_1));
+    "mj_joint_state", qos_jnt_state,
+    std::bind(&SimpleMujocoGuiPlugin::subJointState, this, std::placeholders::_1));
 
   spin_timer_ = new QTimer(this);
   connect(spin_timer_, &QTimer::timeout, [this]() {
@@ -255,7 +255,7 @@ void SimpleMujocoGuiPlugin::pubGuiCommand()
   pub_gui_cmd_->publish(msg);
 }
 
-void SimpleMujocoGuiPlugin::subMujocoState(const sensor_msgs::msg::JointState::SharedPtr msg)
+void SimpleMujocoGuiPlugin::subJointState(const sensor_msgs::msg::JointState::SharedPtr msg)
 {
   for (int i = 0; i < kDoF; ++i)
   {
@@ -265,7 +265,7 @@ void SimpleMujocoGuiPlugin::subMujocoState(const sensor_msgs::msg::JointState::S
   }
 }
 
-void SimpleMujocoGuiPlugin::subControllerState(const sensor_msgs::msg::JointState::SharedPtr msg)
+void SimpleMujocoGuiPlugin::subJointCommand(const sensor_msgs::msg::JointState::SharedPtr msg)
 {
   for (int i = 0; i < kDoF; ++i)
   {
