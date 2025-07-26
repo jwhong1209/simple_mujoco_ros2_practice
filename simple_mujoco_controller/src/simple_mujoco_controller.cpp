@@ -160,6 +160,9 @@ void SimpleMujocoController::update()
       break;
     }
 
+    q_des_ = robot_->inverseKinematics(p_des_);
+    dq_des_ = J_inv * v_des_;
+
     /* ----- Control Law ------------------------------------------------------------------------ */
     Vec2<double> Fc = kp_.cwiseProduct(p_des_ - p_cal_) + kd_.cwiseProduct(v_des_ - v_cal_);
     tau_des_ = J_t * Fc;

@@ -32,11 +32,13 @@ public:
   //* ----- SETTERS --------------------------------------------------------------------------------
   void setJointStates(const Vec2<T> & q, const Vec2<T> & dq);
 
-  //* ----- GETTERS --------------------------------------------------------------------------------
+  //* ----- METHODS --------------------------------------------------------------------------------
   /* Kinematics */
   Vec2<T> position();
   Vec2<T> velocity();
   Mat2<T> jacobian();
+
+  Vec2<T> inverseKinematics(const Vec2<T> & p_des);
 
   /* Dynamics */
   // https://robotics.stackexchange.com/questions/19861/model-of-two-link-rigid-manipulator

@@ -60,6 +60,28 @@ Mat2<T> DoublePendulumModel<T>::jacobian()
   return J_;
 }
 
+template <typename T>
+Vec2<T> DoublePendulumModel<T>::inverseKinematics(const Vec2<T> & p_des)
+{
+  const T x = p_des(0);
+  const T y = p_des(1);
+  Vec2<T> q_des;
+
+  const T r = sqrt(x * x + y * y);
+
+  const T c2 = (r * r - l1_ * l1_ - l2_ * l2_) / (2 * l1_ * l2_);  // cos(q2)
+  const T q2 = acos(c2);
+
+  const T beta = atan2(y, x);
+  const T alpha = atan2(l2_ * sin(q2), l1_ + l2_ * cos(q2));
+  const T q1 = beta - alpha;
+
+  q_des(0) = q1;
+  q_des(1) = q2;
+
+  return q_des;
+}
+
 /* Dynamics */
 template <typename T>
 Mat2<T> DoublePendulumModel<T>::inertia()
