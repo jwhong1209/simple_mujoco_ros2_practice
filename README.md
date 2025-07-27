@@ -1,7 +1,7 @@
 # How to Build & Run
 ```bash
 cd ~/<your-workspace>
-git clone <project-git-repo>
+git clone https://github.com/jwhong1209/simple_mujoco_ros2_practice.git
 cd simple_mujoco_ros2_practice
 ```
 
