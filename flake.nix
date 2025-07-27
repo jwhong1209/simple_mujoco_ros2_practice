@@ -30,10 +30,8 @@
         sensor-msgs
 
         joy
+        rosbag2
       ];
-
-      # mylib = pkgs.callPackage ./mylib {};
-      # elmo-msgs = rospkgs.callPackage ./elmo_msgs {};
 
       simple-mujoco-gui-plugin = rospkgs.callPackage ./simple_mujoco_gui_plugin {};
 
